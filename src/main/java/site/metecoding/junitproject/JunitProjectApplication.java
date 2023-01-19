@@ -9,5 +9,4 @@ public class JunitProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JunitProjectApplication.class, args);
 	}
-
 }
