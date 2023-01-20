@@ -110,7 +110,7 @@ public class BookRepositoryTest {
     @Sql("classpath:db/tableInit.sql")
     @Test
     public void 책수정_test() {
-        // given
+        // given료
         Long id = 1L;
         String title = "junit5";
         String author = "메타코딩";
