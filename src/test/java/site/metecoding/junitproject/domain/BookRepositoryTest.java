@@ -7,12 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.util.List;
 
 @DataJpaTest // DB와 관련된 컴포넌트만 메모리에 로딩
 public class BookRepositoryTest {
-
 
     @Autowired // DI
     private BookRepository bookRepository;

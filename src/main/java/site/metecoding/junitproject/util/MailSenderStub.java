@@ -1,6 +1,5 @@
 package site.metecoding.junitproject.util;
 
-
 import org.springframework.stereotype.Component;
 
 // 가짜!!

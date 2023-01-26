@@ -1,6 +1,5 @@
 package site.metecoding.junitproject.web.dto;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metecoding.junitproject.domain.Book;

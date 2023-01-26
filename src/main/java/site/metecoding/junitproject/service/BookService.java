@@ -1,7 +1,6 @@
 package site.metecoding.junitproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.IMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.metecoding.junitproject.domain.Book;
@@ -23,7 +22,7 @@ public class BookService {
     private final MailSender mailSender;
 
     // 1. 책등록
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor =  RuntimeException.class)
     public BookRespDto 책등록하기(BookSaveReqDto dto) {
         Book bookPS = bookRepository.save(dto.toEntity());
         if (bookPS != null) {
