@@ -4,7 +4,7 @@ package site.metecoding.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import site.metecoding.junitproject.web.dto.BookRespDto;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -32,5 +32,15 @@ public class Book {
     public void update(String title, String author) {
         this.title = title;
         this.author = author;
+    }
+
+
+    // error
+    public BookRespDto toDto() {
+        return BookRespDto.builder()
+                .id(id)
+                .title(title)
+                .author(author)
+                .build();
     }
 }
