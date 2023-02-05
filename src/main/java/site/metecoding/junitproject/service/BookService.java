@@ -35,12 +35,21 @@ public class BookService {
 
     // 2, 책목록보기
     public List<BookRespDto> 책목록보기() {
-        return bookRepository.findAll().stream()
-                .map(new BookRespDto()::toDto)
+        // 본 코드에 문제있나?
+        List<BookRespDto> dtos = bookRepository.findAll().stream()
+                .map((bookPS) -> new BookRespDto().toDto(bookPS))
                 .collect(Collectors.toList());
+
+        // print
+        dtos.stream().forEach((dto) -> {
+            System.out.println("=======본코드========");
+            System.out.println(dto.getId());
+            System.out.println(dto.getTitle());
+        });
+        return dtos;
     }
 
-    // 3. 책한건보기
+    // 3. 책한건보기F
     public BookRespDto 책한건보기(Long id) {
         Optional<Book> bookOP = bookRepository.findById(id);
         if (bookOP.isPresent()) { // 찾았다면
@@ -58,11 +67,12 @@ public class BookService {
 
     // 5. 책수정
     @Transactional(rollbackFor = RuntimeException.class)
-    public void 책수정하기(Long id, BookSaveReqDto dto) { // id, title, author
+    public BookRespDto 책수정하기(Long id, BookSaveReqDto dto) { // id, title, author
         Optional<Book> bookOP = bookRepository.findById(id);
         if (bookOP.isPresent()) {
             Book bookPS = bookOP.get();
             bookPS.update(dto.getTitle(), dto.getAuthor());
+            return bookPS.toDto();
         } else {
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
         }
