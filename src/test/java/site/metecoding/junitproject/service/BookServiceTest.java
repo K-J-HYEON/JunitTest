@@ -1,6 +1,7 @@
 package site.metecoding.junitproject.service;
 
 //https://assertj.github.io/doc/
+// 25강 시작
 
 import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import site.metecoding.junitproject.domain.Book;
 import site.metecoding.junitproject.domain.BookRepository;
 import site.metecoding.junitproject.util.MailSender;
-import site.metecoding.junitproject.web.dto.BookRespDto;
-import site.metecoding.junitproject.web.dto.BookSaveReqDto;
+import site.metecoding.junitproject.web.dto.response.BookRespDto;
+import site.metecoding.junitproject.web.dto.request.BookSaveReqDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

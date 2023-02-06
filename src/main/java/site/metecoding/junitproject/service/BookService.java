@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import site.metecoding.junitproject.domain.Book;
 import site.metecoding.junitproject.domain.BookRepository;
 import site.metecoding.junitproject.util.MailSender;
-import site.metecoding.junitproject.web.dto.BookRespDto;
-import site.metecoding.junitproject.web.dto.BookSaveReqDto;
+import site.metecoding.junitproject.web.dto.response.BookRespDto;
+import site.metecoding.junitproject.web.dto.request.BookSaveReqDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +22,7 @@ public class BookService {
     private final MailSender mailSender;
 
     // 1. 책등록
-    @Transactional(rollbackFor =  RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class)
     public BookRespDto 책등록하기(BookSaveReqDto dto) {
         Book bookPS = bookRepository.save(dto.toEntity());
         if (bookPS != null) {
@@ -30,30 +30,31 @@ public class BookService {
                 throw new RuntimeException("메일이 전송되지 않았습니다.");
             }
         }
-        return new BookRespDto().toDto(bookPS);
+        return bookPS.toDto();
     }
 
     // 2, 책목록보기
     public List<BookRespDto> 책목록보기() {
-        // 본 코드에 문제있나?
         List<BookRespDto> dtos = bookRepository.findAll().stream()
-                .map((bookPS) -> new BookRespDto().toDto(bookPS))
+                // .map((bookPS) -> bookPS.toDto())
+                .map(Book::toDto)
                 .collect(Collectors.toList());
 
-        // print
-        dtos.stream().forEach((dto) -> {
-            System.out.println("=======본코드========");
-            System.out.println(dto.getId());
-            System.out.println(dto.getTitle());
+        dtos.stream().forEach((b) -> {
+            System.out.println(b.getId());
+            System.out.println(b.getTitle());
+            System.out.println("======= 서비스 레이어");
         });
         return dtos;
     }
 
-    // 3. 책한건보기F
+    // 3. 책한건보기
     public BookRespDto 책한건보기(Long id) {
         Optional<Book> bookOP = bookRepository.findById(id);
-        if (bookOP.isPresent()) { // 찾았다면
-            return new BookRespDto().toDto(bookOP.get());
+        if (bookOP.isPresent()) {
+            // 찾았다면
+            Book bookPS = bookOP.get();
+            return bookPS.toDto();
         } else {
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
         }

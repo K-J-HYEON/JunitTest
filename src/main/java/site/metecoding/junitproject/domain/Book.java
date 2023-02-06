@@ -4,7 +4,7 @@ package site.metecoding.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.metecoding.junitproject.web.dto.BookRespDto;
+import site.metecoding.junitproject.web.dto.response.BookRespDto;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -15,7 +15,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-
 
     @Column(length = 50, nullable = false)
     private String title;
@@ -29,13 +28,11 @@ public class Book {
         this.author = author;
     }
 
-    public void update(String title, String author) {
-        this.title = title;
+    public void update(String titie, String author) {
+        this.title = titie;
         this.author = author;
     }
 
-
-    // error
     public BookRespDto toDto() {
         return BookRespDto.builder()
                 .id(id)
