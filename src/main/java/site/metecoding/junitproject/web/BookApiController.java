@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // @RequiredArgsConstructor 해줘서 IoC 컨테이너에 있는 bookService를 DI 해준다.
-// 25강 시작
+// 27강 시작
 @RequiredArgsConstructor
 @RestController
 public class BookApiController { // 컴포지션 = has 관계
@@ -32,18 +32,21 @@ public class BookApiController { // 컴포지션 = has 관계
         BookRespDto bookRespDto = bookService.책등록하기(bookSaveReqDto);
         CMSRespDto<?> cmsRespDto = CMSRespDto.builder().code(1).msg("글 저장 성공").body(bookRespDto).build();
 
+        // AOP 처리하는 게 좋음!!
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
-            for (FieldError fer : bindingResult.getFieldErrors()) {
-                errorMap.put(fer.getField(), fer.getDefaultMessage());
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                errorMap.put(fe.getField(), fe.getDefaultMessage());
             }
-            System.out.println("=======================================");
-            System.out.println(bindingResult.hasErrors());
-            System.out.println("=======================================");
+            System.out.println("==================================");
+            System.out.println(errorMap.toString());
+            System.out.println("==================================");
 
-
+            return new ResponseEntity<>(CMSRespDto.builder().code(-1).msg(errorMap.toString()).body(bookRespDto).build(),
+                    HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(cmsRespDto, HttpStatus.CREATED); // 201 = insert
+        return new ResponseEntity<>(CMSRespDto.builder().code(1).msg("글 저장 성공").body(bookRespDto).build(),
+                HttpStatus.CREATED); // 201 insert
     }
 
     // 2, 책목록보기
