@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import site.metecoding.junitproject.domain.Book;
 import site.metecoding.junitproject.domain.BookRepository;
 import site.metecoding.junitproject.util.MailSender;
+import site.metecoding.junitproject.web.dto.response.BookListRespDto;
 import site.metecoding.junitproject.web.dto.response.BookRespDto;
 import site.metecoding.junitproject.web.dto.request.BookSaveReqDto;
 
@@ -34,7 +35,7 @@ public class BookService {
     }
 
     // 2, 책목록보기
-    public List<BookRespDto> 책목록보기() {
+    public BookListRespDto 책목록보기() {
         List<BookRespDto> dtos = bookRepository.findAll().stream()
                 // .map((bookPS) -> bookPS.toDto())
                 .map(Book::toDto)
@@ -45,7 +46,9 @@ public class BookService {
             System.out.println(b.getTitle());
             System.out.println("======= 서비스 레이어");
         });
-        return dtos;
+
+        BookListRespDto bookListRespDto = BookListRespDto.builder().bookList(dtos).build();
+        return bookListRespDto;
     }
 
     // 3. 책한건보기

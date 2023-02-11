@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import site.metecoding.junitproject.domain.Book;
 import site.metecoding.junitproject.domain.BookRepository;
 import site.metecoding.junitproject.util.MailSender;
+import site.metecoding.junitproject.web.dto.response.BookListRespDto;
 import site.metecoding.junitproject.web.dto.response.BookRespDto;
 import site.metecoding.junitproject.web.dto.request.BookSaveReqDto;
 import java.util.ArrayList;
@@ -57,30 +58,31 @@ public class BookServiceTest {
     @Test
     public void 책목록보기_테스트(){
         // given(파라미터로 들어올 데이터)
-
-        // stub(가설)
         List<Book> books = new ArrayList<>();
         books.add(new Book(1L, "junit강의", "메타코딩"));
         books.add(new Book(2L, "spring강의", "겟인데어"));
+
+        books.stream().forEach((b) -> {
+            System.out.println(b.getId());
+            System.out.println(b.getTitle());
+            System.out.println("===========");
+        });
+
+        // stub
         when(bookRepository.findAll()).thenReturn(books);
 
         // when(실행)
-        List<BookRespDto> bookRespDtoList = bookService.책목록보기();
-
-        // print
-        bookRespDtoList.stream().forEach((dto)-> {
-            System.out.println(dto.getId());
-            System.out.println(dto.getTitle());
-            System.out.println("=================");
-        });
+        BookListRespDto bookListRespDto = bookService.책목록보기();
 
         // then(검증)
-        assertThat(bookRespDtoList.get(0).getTitle()).isEqualTo("junit강의");
-        assertThat(bookRespDtoList.get(0).getAuthor()).isEqualTo("메타코딩");
-        assertThat(bookRespDtoList.get(1).getTitle()).isEqualTo("spring강의");
-        assertThat(bookRespDtoList.get(1).getAuthor()).isEqualTo("겟인데어");
+        assertThat(bookListRespDto.getItems().get(0).getTitle()).isEqualTo("junit강의");
+        assertThat(bookListRespDto.getItems().get(0).getAuthor()).isEqualTo("메타코딩");
+        assertThat(bookListRespDto.getItems().get(1).getTitle()).isEqualTo("spring강의");
+        assertThat(bookListRespDto.getItems().get(1).getAuthor()).isEqualTo("겟인데어");
     }
 
+
+    // 체크포인트
     @Test
     public void 책한건보기_테스트() {
         // given
