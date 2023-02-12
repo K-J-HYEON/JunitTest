@@ -69,6 +69,7 @@ public class BookService {
         bookRepository.deleteById(id); // 1, 2, 3
     }
 
+
     // 5. 책수정
     @Transactional(rollbackFor = RuntimeException.class)
     public BookRespDto 책수정하기(Long id, BookSaveReqDto dto) { // id, title, author

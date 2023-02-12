@@ -1,8 +1,5 @@
 package site.metecoding.junitproject.service;
 
-//https://assertj.github.io/doc/
-// 25강 시작
-
 import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +19,8 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+
+//https://assertj.github.io/doc/
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
