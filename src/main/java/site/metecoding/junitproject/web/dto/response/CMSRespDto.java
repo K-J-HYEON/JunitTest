@@ -2,10 +2,7 @@ package site.metecoding.junitproject.web.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
-
-@Setter
 @Getter
 public class CMSRespDto<T> {
     private Integer code; // 1. 성공, -1 실패

@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import java.util.List;
 
+
+@ActiveProfiles("dev")
 @DataJpaTest // DB와 관련된 컴포넌트만 메모리에 로딩
 public class BookRepositoryTest {
 
@@ -71,7 +74,6 @@ public class BookRepositoryTest {
     } // 트랜잭션 종료(저장된 데이터를 초기화함)
 
     // 3. 책 한건보기
-    @Order(3)
     @Sql("classpath:db/tableInit.sql")
     @Test
     public void 책한건보기_test() {
